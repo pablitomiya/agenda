@@ -13,7 +13,7 @@ app.disable('etag');
 // rutas
 
 app.get('/', (request, response)=> {
-    response.send('<h1>Hello world</h1>')
+    response.send('<h1>API agenda/h1>')
 })
 
 //get persons/id
