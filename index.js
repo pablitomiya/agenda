@@ -8,6 +8,8 @@ app.use(express.json())
 // data
 const persons = require('./contacts')
 
+// get utils
+const { midLogger } = require('./utils')
 
 app.disable('etag');
 // rutas
@@ -47,10 +49,10 @@ app.delete('/api/persons/:id', (request,response) => {
 })
 
 
-app.post('/api/persons/', (request,response) => {
+app.post('/api/persons/', midLogger, (request,response) => {
     const newPerson = request.body
     const resultPersons = persons.concat(newPerson)
-    console.log(resultPersons)
+    // console.log(resultPersons)
     response.status(201).json(newPerson)
 })
 
