@@ -1,7 +1,7 @@
 
 const { request, response } = require('express')
 const express = require('express')
-const cors = require('cors')
+const cors = require('cors') // libreria que me permite evitar la restriccion cors
 // get morgan
 const morgan = require ('morgan')
 const app = express()
