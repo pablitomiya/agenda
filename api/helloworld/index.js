@@ -3,7 +3,7 @@ const { Router } = require('express')
 // var router = express.Router();
 const router = new Router()
 
-router.get('/api/helloworld', (request,response) => {
+router.get('/', (request,response) => {
     response.json({ msj: 'hello world'})
 })
 

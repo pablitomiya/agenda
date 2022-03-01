@@ -7,7 +7,7 @@ const persons = require('../../contacts')
 
 
 //get persons/id
-router.get('/api/persons/:id', (request,response) => {
+router.get('/:id', (request,response) => {
     // const id = request.params.id
     const { id } = request.params
     // const note = notes.find((item, idx) => {
@@ -21,18 +21,18 @@ router.get('/api/persons/:id', (request,response) => {
         response.status(404).end()
     }
 })
-router.get('/api/persons', (request,response)=>{
+router.get('/', (request,response)=>{
     response.json(persons)
 })
 //delete person
-router.delete('/api/persons/:id', (request,response) => {
+router.delete('/:id', (request,response) => {
     const { id } = request.params
     const resultPersons = persons.filter(item => item.id !== Number(id))
     // console.log(resultPersons)
     response.status(204).end()
 })
 // create person
-router.post('/api/persons/', (request,response) => {
+router.post('/', (request,response) => {
     const newPerson = request.body
     const resultPersons = persons.concat(newPerson)
     // console.log(resultPersons)
@@ -40,7 +40,7 @@ router.post('/api/persons/', (request,response) => {
 
 })
 // update person 
-router.put('/api/persons/:id', (request,response) => {
+router.put('/:id', (request,response) => {
     const { id } = request.params
     const data = request.body
     const person = persons.find(item => item.id === Number(id))
