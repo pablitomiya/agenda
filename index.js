@@ -1,15 +1,29 @@
-const { response, request } = require('express')
-const express = require('express')
 
+const { request, response } = require('express')
+const express = require('express')
+// get morgan
+const morgan = require ('morgan')
 const app = express()
 //para poder aceptar verbos posts, middleware que recibe json y lo mete en body en request
 app.use(express.json())
+// app.use(morgan('dev'))
+morgan.token('myTokenBody',(request) => {
+    return JSON.stringify(request.body)
+})
+app.use(
+    morgan(
+        ':method :url :status :res[content-length] :myTokenBody - :response-time ms'
+        )
+    )
+
+
 
 // data
 const persons = require('./contacts')
 
 // get utils
-const { midLogger } = require('./utils')
+// const { midLogger } = require('./utils')
+
 
 app.disable('etag');
 // rutas
@@ -49,11 +63,23 @@ app.delete('/api/persons/:id', (request,response) => {
 })
 
 
-app.post('/api/persons/', midLogger, (request,response) => {
+app.post('/api/persons/', (request,response) => {
     const newPerson = request.body
     const resultPersons = persons.concat(newPerson)
     // console.log(resultPersons)
     response.status(201).json(newPerson)
+
+})
+
+app.put('/api/persons/:id', (request,response) => {
+    const { id } = request.params
+    const data = request.body
+    const person = persons.find(item => item.id === Number(id))
+    if (person) {
+        response.json(person)
+    } else {
+        response.status(404).end()
+    }
 })
 
 const PORT = 3001
