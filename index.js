@@ -1,11 +1,13 @@
 
 const { request, response } = require('express')
 const express = require('express')
+const cors = require('cors')
 // get morgan
 const morgan = require ('morgan')
 const app = express()
 //para poder aceptar verbos posts, middleware que recibe json y lo mete en body en request
 app.use(express.json())
+app.use(cors())
 // app.use(morgan('dev'))
 morgan.token('myTokenBody',(request) => {
     return JSON.stringify(request.body)
