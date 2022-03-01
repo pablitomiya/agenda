@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors') // libreria que me permite evitar la restriccion cors
-const personsApi = require('./api/persons/')
-const helloWorldApi = require('./api/helloworld/')
+const routeConfig = require('./routes')
 // get morgan
 const morgan = require ('morgan')
 const app = express()
@@ -29,8 +28,7 @@ app.use(
 
 app.disable('etag');
 // rutas
-app.use(helloWorldApi)
-app.use(personsApi)
+routeConfig(app)
 app.get('/', (request, response)=> {
     response.send('<h1>API agenda</h1>')
 })
